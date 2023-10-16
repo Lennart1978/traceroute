@@ -3,7 +3,9 @@
 Traceroute Tool is a simple graphical utility built using Go and the Fyne framework.
 It allows users to perform traceroute operations to diagnose network paths.
 
-![Screenshot](screenshot.png)
+<p align="center">
+   <img src="screenshot.png" alt="Screenshot">
+</p>
 
 ## Features
 
@@ -26,3 +28,9 @@ These instructions will get you a copy of the project up and running on your loc
    ```bash
    git clone https://github.com/lennart1978/traceroute.git
    cd traceroute
+2. Build the application
+   ```bash
+   go build .
+3. Run the application AS ROOT !
+   ```bash
+   sudo ./traceroute
