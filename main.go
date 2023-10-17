@@ -30,7 +30,34 @@ type GeoInfo struct {
 	Country string `json:"country"`
 }
 
+type Details struct {
+	ISP string `json:"isp"`
+	Org string `json:"org"`
+	AS  string `json:"as"`
+}
+
 var info GeoInfo
+
+func FillDetails(ip string) (Details, error) {
+	var details Details
+	resp, err := http.Get(fmt.Sprintf("http://ip-api.com/json/%s", ip))
+	if err != nil {
+		return details, err
+	}
+	defer resp.Body.Close()
+
+	var info map[string]interface{}
+	err = json.NewDecoder(resp.Body).Decode(&info)
+	if err != nil {
+		return details, err
+	}
+
+	details.ISP = info["isp"].(string)
+	details.Org = info["org"].(string)
+	details.AS = info["as"].(string)
+
+	return details, nil
+}
 
 func getGeoInfo(ip string) GeoInfo {
 	url := fmt.Sprintf("http://ip-api.com/json/%s", ip)
@@ -69,9 +96,10 @@ func printHop(hop traceroute.TracerouteHop) string {
 }
 
 func main() {
+
 	a := app.NewWithID("com.lennart.traceroute")
 	a.SetIcon(resourceIconPng)
-	w := a.NewWindow("Traceroute v1.0")
+	w := a.NewWindow("TracerouteGUI v1.1")
 	w.Resize(fyne.NewSize(500, 600))
 	w.CenterOnScreen()
 
@@ -112,8 +140,12 @@ func main() {
 		selectedItem := selectedData[id]
 		addr := extractIPFromListItem(selectedItem)
 		info = getGeoInfo(addr)
-		message := fmt.Sprintf("\nCity: %s\nRegion: %s\nCountry: %s", info.City, info.Region, info.Country)
-		dlg := dialog.NewInformation("Location:", message, w)
+		details, err := FillDetails(addr)
+		if err != nil {
+			fmt.Println(err)
+		}
+		message := fmt.Sprintf("\nCity: %s\nRegion: %s\nCountry: %s\nISP: %s\nOrg: %s\n%s", info.City, info.Region, info.Country, details.ISP, details.Org, details.AS)
+		dlg := dialog.NewInformation("Details:", message, w)
 		dlg.Show()
 	}
 
