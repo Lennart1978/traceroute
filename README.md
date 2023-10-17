@@ -12,6 +12,7 @@ It allows users to perform traceroute operations to diagnose network paths.
 - Perform traceroute to a specified host.
 - Display the path of hops along with the elapsed time.
 - Visualize the geographic location of IP addresses in the path.
+- ## Version 1.1: Display ISP, Org, ASN of IP 
 
 ## Getting Started
 
