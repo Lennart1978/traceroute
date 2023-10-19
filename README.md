@@ -2,6 +2,7 @@
 
 Traceroute Tool is a simple graphical utility built using Go and the Fyne framework.
 It allows users to perform traceroute operations to diagnose network paths.
+Thanks to Anthony Eden for his library.
 
 <p align="center">
    <img src="screenshot1.1.png" alt="Screenshot">
