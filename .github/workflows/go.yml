@@ -21,6 +21,9 @@ jobs:
       with:
         go-version: '1.20'
 
+    - name: Install
+      run: sudo apt install libxcursor-dev libxinerama-dev libxrandr-dev libxi-dev libgl-dev libxxf86vm-dev
+
     - name: Build
       run: go build -v ./...
 
