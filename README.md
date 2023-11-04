@@ -1,4 +1,6 @@
-<p align="center"><img src="Logo.png" alt="Logo"></p>
+<p align="center">
+   <img src="Logo.png" alt="Logo">
+</p>
 
 # TracerouteGUI
 
